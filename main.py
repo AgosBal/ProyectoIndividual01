@@ -167,15 +167,16 @@ def get_director(director: str):
     ''' Se ingresa el nombre de un director que se encuentre dentro de un dataset debiendo devolver el éxito del mismo medido a través del retorno. 
     Además, deberá devolver el nombre de cada película con la fecha de lanzamiento, retorno individual, costo y ganancia de la misma.'''
     
-    #Creo la lista en la que se guardan los detalles de la película dirigida por el 'director'
+    # Creo la lista en la que se guardan los detalles de la película dirigida por el 'director'
     pelis_director = []
     for index, row in movies_completo.iterrows():
         if director in row['Director']:
-            #Creo una cadena de texto que contiene los detalles de la película
+            # Creo una cadena de texto que contiene los detalles de la película
             pelicula = '- ' + row['Title'] + ':\n'
-            #Si la fecha de lanzamiento no es nula se agrega una línea adicional a la cadena 'película'
-            if not pd.isnull(row['ReleaseDate']):
-                pelicula += '  - Lanzamiento: ' + row['ReleaseDate'].strftime('%Y-%m-%d') + '\n'
+            # Verifico si la fecha de lanzamiento no es nula y es una cadena válida
+            if isinstance(row['ReleaseDate'], str) and pd.notnull(row['ReleaseDate']):
+                release_date = pd.to_datetime(row['ReleaseDate'])
+                pelicula += '  - Lanzamiento: ' + release_date.strftime('%Y-%m-%d') + '\n'
             pelicula += '  - Retorno: ' + "{:.2f}".format(row['Return']) + '\n' + \
                         '  - Costo: ' + "{:.2f}".format(row['Budget']) + '\n' + \
                         '  - Ganancia: ' + "{:.2f}".format(row['Revenue']) + '\n'
