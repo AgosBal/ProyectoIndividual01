@@ -163,3 +163,4 @@ def recomendacion(titulo: str):
     lista_recomendada = peliculas_recomendadas['Title'].tolist()
 
     return {'Lista recomendada': lista_recomendada}
+
