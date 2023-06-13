@@ -7,7 +7,7 @@ import difflib
 from fastapi import FastAPI
 
 #Instancia FastAPI
-app = FastAPI('Pelis Agos')
+app = FastAPI()
 
 @app.get("/")
 def saludo():
