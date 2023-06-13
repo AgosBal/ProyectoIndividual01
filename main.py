@@ -9,6 +9,11 @@ from fastapi import FastAPI
 #Instancia FastAPI
 app = FastAPI('Pelis Agos')
 
+@app.get("/")
+def saludo():
+    return "Hola! Bienvenido a mi primer proyecto MLOPs "
+
+
 #Importo los datos necesarios
 movies_completo = pd.read_csv('Datasets\Movies_completo.csv',parse_dates=['ReleaseDate','ReleaseYear','ReleaseMonth'])
 
