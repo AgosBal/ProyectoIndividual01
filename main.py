@@ -7,10 +7,19 @@ import difflib
 from fastapi import FastAPI
 
 #Instancia FastAPI
-app = FastAPI('Pelis Agos')
+app = FastAPI()
+
+@app.get('/')
+def root():
+    return {'mensaje': '¡Hola desde mi aplicación FastAPI!'}
+
+@app.get('/hello/{nombre}')
+def hello(nombre: str):
+    return {'mensaje': f'Hola, {nombre}, bienvenid@!'}
+
 
 #Importo los datos necesarios
-movies_completo = pd.read_csv('Movies_completo.csv',parse_dates=['ReleaseDate','ReleaseYear','ReleaseMonth'])
+movies_completo = pd.read_csv('Datasets\Movies_completo.csv',parse_dates=['ReleaseDate','ReleaseYear','ReleaseMonth'])
 
 
 #---------- Queries-----
