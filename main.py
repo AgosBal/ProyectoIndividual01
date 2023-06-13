@@ -131,17 +131,20 @@ def votos_titulo(titulo_de_la_filmacion: str):
 
     #Verifico si hay coincidencia en 'data' entre el título ingresado y los datos de la columna 'Title'
     if (data['Title'] == titulo).any():
-        #Verifico el requisito de la cantidad de votos
-        if data[data['Title'] == titulo]['VoteCount'].item() < 2000:
-            return "La película no cuenta con al menos 2000 valoraciones."
-        else:
-            anio = data[data['Title'] == titulo]['ReleaseYear'].item()
-            qvotos = data[data['Title'] == titulo]['VoteCount'].item()
-            promedio = data[data['Title'] == titulo]['VoteAverage'].item()
+        peliculas = data[data['Title'] == titulo]
+        primera_pelicula = peliculas.iloc[0]
 
-            qvotos = int(qvotos)
+        qvotos = primera_pelicula['VoteCount']
+
+        if qvotos < 2000:
+            return "La película no cuenta con al menos 2000 valoraciones."
+
+        else:
+            anio = primera_pelicula['ReleaseYear']
+            promedio = primera_pelicula['VoteAverage']
 
             return f"La película {titulo} fue estrenada en el año {anio}. La misma cuenta con un total de {qvotos} valoraciones, con un promedio de {promedio}."
+
     else:
         return "La película no se encontró."
     
